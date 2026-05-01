@@ -65,15 +65,46 @@ armJoint[5].angle = 70
 
 time.sleep(0.5)
 
+# initial position
 armJoint[0].angle = 46
 armJoint[1].angle = 108
 armJoint[2].angle = 54
 
-for i in range(6):
-    
-    time.sleep(0.2)
+def loosen_bolt():
+    # unscrew the bolt
+    for i in range(6):
+        
+        time.sleep(0.2)
+        # twists right
+        armJoint[3].angle = 180
+
+        time.sleep(SLEEP_TIME)
+        # closes it
+        armJoint[5].angle = 130
+
+        time.sleep(SLEEP_TIME)
+        # twists left
+        armJoint[3].angle = 5
+
+        time.sleep(0.6)
+        # opens it
+        armJoint[5].angle = 70
+
+        # reset position
+        armJoint[0].angle = 45
+        armJoint[1].angle = 108
+        armJoint[2].angle = 54
+
+    # last iteration
+
+    time.sleep(SLEEP_TIME)
     # twists right
     armJoint[3].angle = 180
+
+    time.sleep(SLEEP_TIME)#
+    # pull back
+    armJoint[1].angle = 109
+    armJoint[2].angle = 53
 
     time.sleep(SLEEP_TIME)
     # closes it
@@ -81,39 +112,29 @@ for i in range(6):
 
     time.sleep(SLEEP_TIME)
     # twists left
-    armJoint[3].angle = 5
+    armJoint[3].angle = 90
 
-    time.sleep(0.6)
-    # opens it
-    armJoint[5].angle = 70
-
-    # reset position
-    armJoint[0].angle = 45
-    armJoint[1].angle = 108
-    armJoint[2].angle = 54
-
-# last iteration
-
-time.sleep(SLEEP_TIME)
-# twists right
-armJoint[3].angle = 180
-
-time.sleep(SLEEP_TIME)#
-# pull back
-armJoint[1].angle = 109
-armJoint[2].angle = 53
-
-time.sleep(SLEEP_TIME)
-# closes it
-armJoint[5].angle = 130
-
-time.sleep(SLEEP_TIME)
-# twists left
-armJoint[3].angle = 90
-
+loosen_bolt()
 # pull back more
-time.sleep(SLEEP_TIME)#
+time.sleep(SLEEP_TIME)
 armJoint[1].angle = 112
 armJoint[2].angle = 50
 
+# twist left to second part
+time.sleep(1)
+armJoint[1].angle = 125
+time.sleep(1)
+
+
+armJoint[0].angle = 128
+armJoint[1].angle = 110
+armJoint[2].angle = 42
+
+# FINISHED USNCREWING, robot is holding the bolt
+
+#Turn
+
+
+
 pca.deinit()
+

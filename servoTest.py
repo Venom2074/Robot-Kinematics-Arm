@@ -54,17 +54,24 @@ armJoint = [0,0,0,0,0,0]
 for i in range(0,6):
   armJoint[i] = servo.Servo(pca.channels[i], min_pulse=400, max_pulse=2400)
 
-armJoint[1].angle = 135
+armJoint[1].angle = 110 
 time.sleep(SLEEP_TIME)
 
 # We sleep in the loops to give the servo time to move into position.
 for i in range(0,6):
     armJoint[i].angle = 90
+time.sleep(0.5)
 
-armJoint[0].angle = 44
-armJoint[1].angle = 107
-armJoint[2].angle = 52
+# twist left to second part
+time.sleep(1)
+armJoint[1].angle = 125
+time.sleep(1)
 
-armJoint[5].angle = 5
+
+armJoint[0].angle = 128
+armJoint[2].angle = 42
+
+time.sleep(0.5)
+armJoint[1].angle = 110
 
 pca.deinit()
