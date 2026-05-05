@@ -50,6 +50,13 @@ pca.frequency = 50
 
 SLEEP_TIME = 0.4
 
+# FROM MY PERSPECTIVE
+# Joint 0: smaller is left, bigger is right
+# Joint 1: smaller is forward, bigger is back
+# Joint 2: smaller is down, bigger is up
+# Joint 3: bigger is twist left, smaller is twist right
+# Joint 5: smaller is open, bigger is close
+
 armJoint = [0,0,0,0,0,0]
 for i in range(0,6):
   armJoint[i] = servo.Servo(pca.channels[i], min_pulse=400, max_pulse=2400)
@@ -66,12 +73,18 @@ armJoint[5].angle = 70
 time.sleep(0.5)
 
 # initial position
-armJoint[0].angle = 46
-armJoint[1].angle = 108
-armJoint[2].angle = 54
+S0_INIT = 48
+S1_INIT = 108
+S2_INIT = 54
+
+armJoint[0].angle = S0_INIT
+armJoint[1].angle = S1_INIT
+armJoint[2].angle = S2_INIT
 
 def loosen_bolt():
     # unscrew the bolt
+
+    # normal iterations is 6
     for i in range(6):
         
         time.sleep(0.2)
@@ -91,9 +104,9 @@ def loosen_bolt():
         armJoint[5].angle = 70
 
         # reset position
-        armJoint[0].angle = 45
-        armJoint[1].angle = 108
-        armJoint[2].angle = 54
+        armJoint[0].angle = S0_INIT
+        armJoint[1].angle = S1_INIT
+        armJoint[2].angle = S2_INIT
 
     # last iteration
 
@@ -120,21 +133,33 @@ time.sleep(SLEEP_TIME)
 armJoint[1].angle = 112
 armJoint[2].angle = 50
 
-# twist left to second part
+armJoint[0].angle = 135.0
+time.sleep(SLEEP_TIME)
+
+# slowly approach the second challenge position
+STEP = 3
+STEP_SLEEP = 0.1
+
+
+# slowly pull back to 125
 time.sleep(1)
-armJoint[1].angle = 125
+steps = int(abs(125 - 112))
+for s in range(steps + 1):
+    t = s / steps
+    armJoint[1].angle = 112 + t * (125 - 112)
+    time.sleep(STEP_SLEEP)
 time.sleep(1)
 
 
-armJoint[0].angle = 128
-armJoint[1].angle = 110
-armJoint[2].angle = 42
-
-# FINISHED USNCREWING, robot is holding the bolt
-
-#Turn
-
+steps = int(abs(108 - 122))
+for s in range(steps + 1):
+    t = s / steps
+    armJoint[1].angle = 122 + t * (110 - 122)
+    armJoint[2].angle = 55 + t * (43 - 55)
+    time.sleep(STEP_SLEEP)
 
 
-pca.deinit()
+
+if __name__ == "__main__":
+    pca.deinit()
 
