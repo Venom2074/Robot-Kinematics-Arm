@@ -20,7 +20,7 @@ for i in range(6):
 time.sleep(0.5)
 
 # hold at a valid pulse-width position so servos stay firm
-HOLD = 5
+HOLD = 0
 for i in range(6):
     armJoint[i].angle = HOLD
 time.sleep(0.3)

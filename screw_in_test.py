@@ -64,70 +64,16 @@ for i in range(0,6):
 armJoint[1].angle = 125
 time.sleep(SLEEP_TIME)
 
-# We sleep in the loops to give the servo time to move into position.
-for i in range(0,6):
-    armJoint[i].angle = 90
-
-armJoint[5].angle = 70
-
-time.sleep(0.5)
-
-# initial position
 S0_INIT = 48
-S1_INIT = 107
+S1_INIT = 108
 S2_INIT = 54
 
 armJoint[0].angle = S0_INIT
 armJoint[1].angle = S1_INIT
 armJoint[2].angle = S2_INIT
 
-def loosen_bolt():
-    # unscrew the bolt
+time.sleep(0.5)
 
-    # normal iterations is 6
-    for i in range(7):
-        
-        time.sleep(0.2)
-        # twists right
-        armJoint[3].angle = 180
-
-        time.sleep(SLEEP_TIME)
-        # closes it
-        armJoint[5].angle = 130
-
-        time.sleep(SLEEP_TIME)
-        # twists left
-        armJoint[3].angle = 5
-
-        time.sleep(0.6)
-        # opens it
-        armJoint[5].angle = 70
-
-        # reset position
-        armJoint[0].angle = S0_INIT
-        armJoint[1].angle = S1_INIT
-        armJoint[2].angle = S2_INIT
-
-    # last iteration
-
-    time.sleep(SLEEP_TIME)
-    # twists right
-    armJoint[3].angle = 180
-
-    time.sleep(SLEEP_TIME)#
-    # pull back
-    armJoint[1].angle = 109
-    armJoint[2].angle = 53
-
-    time.sleep(SLEEP_TIME)
-    # closes it
-    armJoint[5].angle = 130
-
-    time.sleep(SLEEP_TIME)
-    # twists left
-    armJoint[3].angle = 90
-
-loosen_bolt()
 # pull back more
 time.sleep(SLEEP_TIME)
 armJoint[1].angle = 112
